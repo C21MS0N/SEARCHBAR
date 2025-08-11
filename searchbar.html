@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Favorite Anime Search</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #1e1e2f;
+      color: #fff;
+      text-align: center;
+      padding: 30px;
+    }
+    input[type="text"] {
+      padding: 10px;
+      width: 300px;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      margin-bottom: 20px;
+    }
+    .anime-list {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+    }
+    .anime-card {
+      background: #2a2a40;
+      border-radius: 8px;
+      padding: 10px;
+      width: 150px;
+      transition: transform 0.2s;
+    }
+    .anime-card:hover {
+      transform: scale(1.05);
+    }
+    .anime-card img {
+      width: 100%;
+      border-radius: 5px;
+    }
+    .anime-name {
+      margin-top: 10px;
+      font-weight: bold;
+    }
+    .not-found {
+      margin-top: 20px;
+      color: #ff4f4f;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>My Favorite Anime</h1>
+  <input type="text" id="searchInput" placeholder="Search anime..." oninput="searchAnime()">
+
+  <div class="anime-list" id="animeList"></div>
+  <div id="notFound" class="not-found" style="display: none;">Sorry, you are not on my favorite anime list.</div>
+
+  <script>
+    const animes = [
+      {
+        name: "Naruto",
+        img: "ANIMECOVERS/narutocover.jpg"
+      },
+      {
+        name: "Attack on Titan",
+        img: "ANIMECOVERS/aotcover.webp" // Replace with your hosted image matching Volume 1 cover
+      },
+      {
+        name: "One Piece",
+        img: "ANIMECOVERS/opcover.jpg" // Replace with your hosted image matching Volume 61 cover
+      },
+      {
+        name: "Demon Slayer",
+        img: "ANIMECOVERS/knycover.jpg"
+      },
+      {
+        name: "Jujutsu Kaisen",
+        img: "ANIMECOVERS/jjkcover.png"
+      },
+      {
+        name: "My Hero Academia",
+        img: "ANIMECOVERS/mhacover.webp"
+      },
+      {
+        name: "JOJO's Bizarre Adventure",
+        img: "ANIMECOVERS/jojocover.jpg"
+      },
+      {
+        name: "Lookism",
+        img: "ANIMECOVERS/lookcover.jpg"
+      },
+      {
+        name: "Dragon Ball Super",
+        img: "ANIMECOVERS/dbscover.jpg"
+      },
+      {
+        name: "Tokyo Ghoul",
+        img: "ANIMECOVERS/tokyoghoulcover.jpg"
+      },
+      {
+        name: "The Rising of the Shield Hero",
+        img: "ANIMECOVERS/shieldcover.webp"
+      },
+      {
+        name: "Hunter x Hunter",
+        img: "ANIMECOVERS/hxhcover.jpg"
+      }
+    ];
+
+    function displayAnimes(list) {
+      const animeListDiv = document.getElementById("animeList");
+      const notFoundDiv = document.getElementById("notFound");
+
+      if (list.length === 0) {
+        animeListDiv.innerHTML = "";
+        notFoundDiv.style.display = "block";
+      } else {
+        notFoundDiv.style.display = "none";
+        animeListDiv.innerHTML = list.map(anime => `
+          <div class="anime-card">
+            <img src="${anime.img}" alt="${anime.name}">
+            <div class="anime-name">${anime.name}</div>
+          </div>`).join("");
+      }
+    }
+
+    function searchAnime() {
+      const query = document.getElementById("searchInput").value.toLowerCase();
+      const filtered = animes.filter(anime => anime.name.toLowerCase().includes(query));
+      displayAnimes(filtered);
+    }
+
+    // Initial display
+    displayAnimes(animes);
+  </script>
+
+</body>
+</html>
