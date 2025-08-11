@@ -66,54 +66,18 @@
 
   <script>
     const animes = [
-      {
-        name: "Naruto",
-        img: "ANIMECOVERS/narutocover.jpg"
-      },
-      {
-        name: "Attack on Titan",
-        img: "ANIMECOVERS/aotcover.webp" 
-      },
-      {
-        name: "One Piece",
-        img: "ANIMECOVERS/opcover.jpg" 
-      },
-      {
-        name: "Demon Slayer",
-        img: "ANIMECOVERS/knycover.jpg"
-      },
-      {
-        name: "Jujutsu Kaisen",
-        img: "ANIMECOVERS/jjkcover.png"
-      },
-      {
-        name: "My Hero Academia",
-        img: "ANIMECOVERS/mhacover.webp"
-      },
-      {
-        name: "JOJO's Bizarre Adventure",
-        img: "ANIMECOVERS/jojocover.jpg"
-      },
-      {
-        name: "Lookism",
-        img: "ANIMECOVERS/lookcover.jpg"
-      },
-      {
-        name: "Dragon Ball Super",
-        img: "ANIMECOVERS/dbscover.jpg"
-      },
-      {
-        name: "Tokyo Ghoul",
-        img: "ANIMECOVERS/tokyoghoulcover.jpg"
-      },
-      {
-        name: "The Rising of the Shield Hero",
-        img: "ANIMECOVERS/shieldcover.webp"
-      },
-      {
-        name: "Hunter x Hunter",
-        img: "ANIMECOVERS/hxhcover.jpg"
-      }
+      { name: "Naruto", img: "ANIMECOVERS/narutocover.jpg" },
+      { name: "Attack on Titan", img: "ANIMECOVERS/aotcover.webp" },
+      { name: "One Piece", img: "ANIMECOVERS/opcover.jpg" },
+      { name: "Demon Slayer", img: "ANIMECOVERS/knycover.jpg" },
+      { name: "Jujutsu Kaisen", img: "ANIMECOVERS/jjkcover.png" },
+      { name: "My Hero Academia", img: "ANIMECOVERS/mhacover.webp" },
+      { name: "JOJO's Bizarre Adventure", img: "ANIMECOVERS/jojocover.jpg" },
+      { name: "Lookism", img: "ANIMECOVERS/lookcover.jpg" },
+      { name: "Dragon Ball Super", img: "ANIMECOVERS/dbscover.jpg" },
+      { name: "Tokyo Ghoul", img: "ANIMECOVERS/tokyoghoulcover.jpg" },
+      { name: "The Rising of the Shield Hero", img: "ANIMECOVERS/shieldcover.webp" },
+      { name: "Hunter x Hunter", img: "ANIMECOVERS/hxhcover.jpg" }
     ];
 
     function displayAnimes(list) {
@@ -134,8 +98,18 @@
     }
 
     function searchAnime() {
-      const query = document.getElementById("searchInput").value.toLowerCase();
-      const filtered = animes.filter(anime => anime.name.toLowerCase().includes(query));
+      const query = document.getElementById("searchInput").value.toLowerCase().trim();
+      if (!query) {
+        displayAnimes(animes);
+        return;
+      }
+
+      const queryWords = query.split(' ').filter(word => word);
+      const filtered = animes.filter(anime => {
+        const animeName = anime.name.toLowerCase();
+        return queryWords.every(word => animeName.includes(word));
+      });
+
       displayAnimes(filtered);
     }
 
